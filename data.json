@@ -1,11 +1,19 @@
 {
   "profile": {
-    "name": "你的名字",
+    "name": "不才",
+    "imgManager": "./头像.png",
     "title": "你的职位",
-    "bio": "你的简介..."
+    "label": "Python / Django / Flask / Web开发",
+    "aboutMe": "在当今的技术浪潮中，AI已深度融入编程的各个环节，为我带来更高效、更智能的开发体验。在开发过程中巧用AI插件可以为你很快的设计代码逻辑或给出方案，而我们要做的是，给出需要的功能，然后检查给出的代码，一步步通过AI进行完善，可以大大的提高项目进度。下面我分享了一些通过AI辅助开发的Python接口/网站示例",
+    "email": "",
+    "qq": "",
+    "github": "https://github.com/241793"
+
+
   },
   "projects": [
-    {"title": "项目1", "description": "描述1"},
-    {"title": "项目2", "description": "描述2"}
+    {"title": "卡密系统", "description": "通过Flask开发，网站分为管理端和代理端，接口已经完善，可以直接部署。未使用数据库，可以自己修改。","addr": ""},
+    {"title": "垃圾邮件批量管理", "description": "简单写了个通过协议查看垃圾邮件的页面，也是通过Python开发，如果想开发完整的邮箱系统也可以参考一下","addr": ""},
+    {"title": "免费影视观看", "description": "页面由AI一键生成，所有很快的能写好一些小网站，该网站可以正常观看资源","addr": "https://movie.oyxxz.eu.org"}
   ]
 }
