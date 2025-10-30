@@ -3,49 +3,334 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人空间</title>
+    <title>我的酷炫空间</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #23d5ab;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 8rem 0;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #23d5ab);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: slideInUp 1s ease;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .skill {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .skill:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .project-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
 </head>
 <body>
-    <header class="glass-nav">
-        <nav class="container">
-            <h2>我的主页</h2>
-            <a href="admin.html" class="admin-link">管理</a>
-        </nav>
-    </header>
+    <nav class="glass-nav">
+        <div class="container">
+            <div class="nav-brand">
+                <h3>MyPortfolio</h3>
+            </div>
+            <div class="nav-links">
+                <a href="#about">关于我</a>
+                <a href="#skills">技能</a>
+                <a href="#projects">项目</a>
+                <a href="#contact">联系</a>
+            </div>
+        </div>
+    </nav>
 
     <section class="hero">
         <div class="container">
-            <img id="avatar" src="" alt="头像" class="hero-avatar">
-            <h1 id="name">加载中...</h1>
-            <p id="title">前端开发者 | UI设计师</p>
+            <img src="./images/avatar.jpg" alt="头像" class="hero-avatar">
+            <h1>你好，我是创新开发者</h1>
+            <p>前端工程师 | UI设计师 | 创意实现者</p>
         </div>
     </section>
 
-    <section id="about" class="container section">
+    <section id="about" class="section container">
         <h2>关于我</h2>
-        <p id="bio">这里将显示你的个人简介。</p>
+        <p>我是一名充满热情的前端开发者，致力于创造美观且功能强大的Web体验。拥有5年行业经验，擅长将复杂需求转化为优雅的解决方案。</p>
     </section>
 
-    <section id="skills" class="container section">
+    <section id="skills" class="section container">
         <h2>技能专长</h2>
-        <div id="skills-container" class="skills-list">
-            <!-- 技能标签将通过JavaScript动态生成 -->
+        <div class="skills-list">
+            <span class="skill">HTML5/CSS3</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">React</span>
+            <span class="skill">Vue.js</span>
+            <span class="skill">Node.js</span>
+            <span class="skill">UI/UX设计</span>
+        </div>
+        <div style="height: 300px; margin-top: 2rem;">
+            <canvas id="skillsChart"></canvas>
         </div>
     </section>
 
-    <section id="projects" class="container section">
+    <section id="projects" class="section container">
         <h2>项目作品</h2>
-        <div id="projects-container" class="project-grid">
-            <!-- 项目卡片将通过JavaScript动态生成 -->
+        <div class="project-grid">
+            <div class="project-card">
+                <h3>智能电商平台</h3>
+                <p>基于React和Node.js构建的全栈电商解决方案，支持实时库存管理和支付集成。</p>
+            </div>
+            <div class="project-card">
+                <h3>数据可视化仪表板</h3>
+                <p>使用D3.js和Chart.js创建的交互式数据分析工具，帮助企业洞察业务趋势。</p>
+            </div>
+            <div class="project-card">
+                <h3>移动端旅行应用</h3>
+                <p>跨平台旅行规划应用，提供个性化的行程推荐和实时天气集成。</p>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <p>© 2025 个人主页. 所有权利保留.</p>
-    </footer>
+    <section id="contact" class="section container">
+        <h2>联系我</h2>
+        <div class="contact-links">
+            <a href="mailto:hello@example.com" class="contact-link">
+                📧 邮箱交流
+            </a>
+            <a href="https://github.com" target="_blank" class="contact-link">
+                💻 GitHub
+            </a>
+            <a href="https://linkedin.com" target="_blank" class="contact-link">
+                💼 LinkedIn
+            </a>
+        </div>
+    </section>
 
-    <script src="script.js"></script>
+    <script>
+        // 技能图表初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['HTML/CSS', 'JavaScript', 'React', 'Vue', 'Node.js', 'UI设计'],
+                    datasets: [{
+                        label: '技能掌握度',
+                        data: [90, 85, 80, 75, 70, 85],
+                        backgroundColor: 'rgba(35, 213, 171, 0.2)',
+                        borderColor: 'rgba(35, 213, 171, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(35, 213, 171, 1)'
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            pointLabels: { color: 'white' },
+                            ticks: { display: false, backdropColor: 'transparent' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: 'white' } }
+                    }
+                }
+            });
+        });
+
+        // 滚动动画增强
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 观察所有需要动画的元素
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'all 0.8s ease';
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
