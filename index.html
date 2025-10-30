@@ -255,14 +255,14 @@
     <section id="contact" class="section container">
         <h2>联系我</h2>
         <div class="contact-links">
-            <a href="" class="contact-link" target="_blank">
+            <a href="" class="contact-link" target="_blank" id="email">
                 📧 邮箱交流
             </a>
             <a href="" target="_blank" class="contact-link" id="gitHub">
                 💻 GitHub
             </a>
-            <a href="https://linkedin.com" target="_blank" class="contact-link">
-                💼 LinkedIn
+            <a href="" target="_blank" class="contact-link" id="qq">
+                <img src="http://wpa.qq.com/pa?p=1:12345678:52" alt="点击这里给我发消息" border="0"> qq
             </a>
         </div>
     </section>
@@ -294,10 +294,10 @@ async function loadContent() {
         document.getElementById('logo').textContent = data.profile.name;
         document.getElementById('imgManager').src = data.profile.imgManager;
         document.getElementById('label').textContent = data.profile.label;
-        document.getElementById('aboutMe').textContent = data.profile.aboutMe;
+        document.getElementById('aboutMe').innerHTML = data.profile.aboutMe;
         document.getElementById('gitHub').href = data.profile.github;
         document.getElementById('email').href = "mailto:" + data.profile.email;
-        // document.getElementById('aboutMe').textContent = data.profile.qq;
+        document.getElementById('qq').href = `https://office.qq.com/mobile/jump.html?from=qq&ret=0&type=1&param=01010100010100046782d6e1&sid=1&rawuin=${data.profile.qq}&qsig=undefined&authKey=TEST_AUTH_KEY`;
 
     } catch (error) {
         console.error('加载内容失败:', error);
