@@ -1,16 +1,11 @@
 {
   "profile": {
     "name": "你的名字",
-    "title": "前端开发者 | UI设计师",
-    "bio": "这里是一段关于你的精彩介绍...可以自由修改。",
-    "avatar": "./images/avatar.jpg"
+    "title": "你的职位",
+    "bio": "你的简介..."
   },
-  "skills": ["HTML5", "CSS3", "JavaScript", "Vue.js", "React"],
   "projects": [
-    {
-      "title": "智能天气应用",
-      "description": "一个使用React和OpenWeather API构建的响应式应用。",
-      "link": "https://example.com"
-    }
+    {"title": "项目1", "description": "描述1"},
+    {"title": "项目2", "description": "描述2"}
   ]
 }
