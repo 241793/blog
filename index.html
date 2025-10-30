@@ -93,7 +93,7 @@
             background: linear-gradient(45deg, #fff, #23d5ab);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
+
         }
 
         .hero p {
@@ -198,13 +198,17 @@
             .project-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
         }
+        a{
+          text-decoration: none;
+          color: inherit;
+        }
     </style>
 </head>
 <body>
     <nav class="glass-nav">
         <div class="container">
             <div class="nav-brand">
-                <h3>MyPortfolio</h3>
+                <h3 id="logo"></h3>
             </div>
             <div class="nav-links">
                 <a href="#about">关于我</a>
@@ -217,15 +221,15 @@
 
     <section class="hero">
         <div class="container">
-            <img src="./images/avatar.jpg" alt="头像" class="hero-avatar">
-            <h1>你好，我是创新开发者</h1>
-            <p>前端工程师 | UI设计师 | 创意实现者</p>
+            <img src="" alt="头像" class="hero-avatar" id="imgManager">
+            <h1>你好，很高兴遇见你</h1>
+            <p id="label"></p>
         </div>
     </section>
 
     <section id="about" class="section container">
         <h2>关于我</h2>
-        <p>我是一名充满热情的前端开发者，致力于创造美观且功能强大的Web体验。拥有5年行业经验，擅长将复杂需求转化为优雅的解决方案。</p>
+        <p id="aboutMe"></p>
     </section>
 
     <section id="skills" class="section container">
@@ -233,10 +237,8 @@
         <div class="skills-list">
             <span class="skill">HTML5/CSS3</span>
             <span class="skill">JavaScript</span>
-            <span class="skill">React</span>
-            <span class="skill">Vue.js</span>
-            <span class="skill">Node.js</span>
-            <span class="skill">UI/UX设计</span>
+            <span class="skill">Python爬虫</span>
+            <span class="skill">Python WEB</span>
         </div>
         <div style="height: 300px; margin-top: 2rem;">
             <canvas id="skillsChart"></canvas>
@@ -246,28 +248,17 @@
     <section id="projects" class="section container">
         <h2>项目作品</h2>
         <div class="project-grid">
-            <div class="project-card">
-                <h3>智能电商平台</h3>
-                <p>基于React和Node.js构建的全栈电商解决方案，支持实时库存管理和支付集成。</p>
-            </div>
-            <div class="project-card">
-                <h3>数据可视化仪表板</h3>
-                <p>使用D3.js和Chart.js创建的交互式数据分析工具，帮助企业洞察业务趋势。</p>
-            </div>
-            <div class="project-card">
-                <h3>移动端旅行应用</h3>
-                <p>跨平台旅行规划应用，提供个性化的行程推荐和实时天气集成。</p>
-            </div>
+
         </div>
     </section>
 
     <section id="contact" class="section container">
         <h2>联系我</h2>
         <div class="contact-links">
-            <a href="mailto:hello@example.com" class="contact-link">
+            <a href="" class="contact-link" target="_blank">
                 📧 邮箱交流
             </a>
-            <a href="https://github.com" target="_blank" class="contact-link">
+            <a href="" target="_blank" class="contact-link" id="gitHub">
                 💻 GitHub
             </a>
             <a href="https://linkedin.com" target="_blank" class="contact-link">
@@ -277,16 +268,52 @@
     </section>
 
     <script>
+        window.onload = function() {
+            loadContent();
+        };
+// 动态加载内容
+async function loadContent() {
+    try {
+        const response = await fetch('./data.json');
+        const data = await response.json();
+        const projects = data.projects;
+        const project = document.getElementsByClassName("project-grid")[0];
+        for (let i = 0; i < projects.length; i++) {
+            const projectElement = document.createElement('div');
+            projectElement.className = 'project-card';
+            projectElement.innerHTML = `
+                <a href=${projects[i].addr} class="pro-addr" target="_blank">
+                <h3>${projects[i].title}</h3>
+                <p>${projects[i].description}</p>
+                </a>
+            `;
+            project.appendChild(projectElement);
+        }
+
+        // 更新个人信息
+        document.getElementById('logo').textContent = data.profile.name;
+        document.getElementById('imgManager').src = data.profile.imgManager;
+        document.getElementById('label').textContent = data.profile.label;
+        document.getElementById('aboutMe').textContent = data.profile.aboutMe;
+        document.getElementById('gitHub').href = data.profile.github;
+        document.getElementById('email').href = "mailto:" + data.profile.email;
+        // document.getElementById('aboutMe').textContent = data.profile.qq;
+
+    } catch (error) {
+        console.error('加载内容失败:', error);
+    }
+}
+
         // 技能图表初始化
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('skillsChart').getContext('2d');
             new Chart(ctx, {
                 type: 'radar',
                 data: {
-                    labels: ['HTML/CSS', 'JavaScript', 'React', 'Vue', 'Node.js', 'UI设计'],
+                    labels: ['HTML/CSS', 'JavaScript', 'Python爬虫', 'Django', 'Flask'],
                     datasets: [{
                         label: '技能掌握度',
-                        data: [90, 85, 80, 75, 70, 85],
+                        data: [90, 90, 90, 90, 90],
                         backgroundColor: 'rgba(35, 213, 171, 0.2)',
                         borderColor: 'rgba(35, 213, 171, 1)',
                         borderWidth: 2,
