@@ -258,8 +258,8 @@
     <section id="contact" class="section container">
         <h2>联系我</h2>
         <div class="contact-links">
-            <a href="" class="contact-link" target="_blank" id="email">
-                📧 邮箱交流
+            <a href="" class="contact-link" target="_blank" id="blog">
+                👀 Blog
             </a>
             <a href="" target="_blank" class="contact-link" id="gitHub">
                 💻 GitHub
@@ -299,7 +299,7 @@ async function loadContent() {
         document.getElementById('label').textContent = data.profile.label;
         document.getElementById('aboutMe').innerHTML = data.profile.aboutMe;
         document.getElementById('gitHub').href = data.profile.github;
-        document.getElementById('email').href = "mailto:" + data.profile.email;
+        document.getElementById('blog').href = data.profile.blog;
         document.getElementById('qq').href = `https://office.qq.com/mobile/jump.html?from=qq&ret=0&type=1&param=01010100010100046782d6e1&sid=1&rawuin=${data.profile.qq}&qsig=undefined&authKey=TEST_AUTH_KEY`;
 
     } catch (error) {
